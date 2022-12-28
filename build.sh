@@ -11,7 +11,7 @@ __wifi_settings_interactive=
 __debug=
 __parallel_limit=
 __cores=
-__machine=qemuarm
+__machine=qemu
 
 while (( $# )); do
     case ${1,,} in
