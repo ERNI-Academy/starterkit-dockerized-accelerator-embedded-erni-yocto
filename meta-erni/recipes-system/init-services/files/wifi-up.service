@@ -1,0 +1,13 @@
+#  This file is intended to work with systemd.
+
+[Unit]
+Description=Up Wlan0
+After=After=network.target sockets.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ifup wlan0
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
