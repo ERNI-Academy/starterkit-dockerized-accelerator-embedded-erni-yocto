@@ -1,86 +1,105 @@
-# About {{ Name }}
+# Flutterpi OS based on yocto
 
-ERNI Academy StarterKit, PoC, or Gidelines. This is an about description of your repository.
+This is the development environment of flutterpi. A raspberry pi linux distro based on poky (yocto) which runs flutter apps. This is very useful for several use cases like: kiosk machines, vending machines, info panels, and a lot of different HMIs. It allows you to develop a HMI quickly, repeatible and fully customizable.
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+## Dev env characteristics
 
-## Built With
+This devenv has been designed with the following prerequisites:
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+- Widely compatible with host systems.
+- As easy as posible.
+- Good documented.
+- Easy to manage remotely.
+- Flexible and multipurpose.
 
-- [Tools A](https://example.com)
-- [Framework B](https://example.com)
-- [Project C](https://example.com)
+## Basic use
 
-## Features
+The devenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubuntu 20.04/22.04, you will be able to use it natively. Otherwise, you have these other options:
 
-- Be awesome
-- Make things faster
+- Install docker (recommended)
+- Visual Code: Dev in container (also recommended, only linux host)
+- Virtual Machine with Ubuntu 20.04/22.04
+- Install WSL2 (only for Windows)
 
-## Getting Started
+### Installing - Docker method. Otherwise, you can skip this step.
 
-This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
+**Note:** Before running this step, you should be sure of:
 
-## Prerequisites
+- Docker is installed
+- Docker service/daemon is running
+- Your user is in the docker group `sudo usermod -aG $(whoami) docker`
 
-This is an example of how to list things you need to use the software and how to install them.
+The script will try to install/config docker in case it wasn't installed. If installation or config is needed, you will have to reboot your host and launch the script again.
 
-## Installation
+```bash
+./init-docker-env.sh
+```
 
-Installation instructions {{ Name }} by running:
+### Installing - Ubuntu 20.04/22.04 native method
 
-1. Clone the repo
+**Note:** The installation step has to be used just the very first time.
 
-   ```sh
-   git clone https://github.com/ERNI-Academy/Project-Name.git
-   ```
+```bash
+./installDevDeps.sh
+```
 
-2. Install packages
+## Build
 
-    ```sh
-    npm install
-    ```
+You can build the entire image with settings by default. The result will a image bootable in a Raspberry Pi which runs a flutter app at the beggining. Just type:
 
-3. Configure
+```bash
+./build.sh
+# Building the image from scratch could take hours. Be patient
+```
 
-    ```JS
-    const API_KEY = 'ENTER YOUR API';
-    ```
+Before starting the building, you can set the Wi-Fi settings (ssid + pass).
 
-## Contributing
+```bash
+./build.sh --wifi-interactive
+```
 
-Please see our [Contribution Guide](CONTRIBUTING.md) to learn how to contribute.
+**Note:** This will be skipped if you set the enviroment variables `WIFISSID` and `WIFIPASS` since the script will config the Wi-Fi automatically.
+
+**Note:** See ./build.sh --help for further information.
+
+## Custom build command
+
+Build script let you enter your custom bitbake commands. This can be done by using the -bc or --bitbake-cmd argument followed by the double-quoted command. This argument must be placed in the last position of command in order to avoid conflicts. See some examples:
+
+```bash
+./build.sh --bitbake-cmd bitbake -s | grep flutter
+./build.sh -bc bitbake -D wifi -c clean
+./build.sh --bitbake-cmd bitbake-layers show-layers
+./build.sh -j 8 -wi --bitbake-cmd bitbake-layers show-layers
+```
+
+## Interactive session
+
+This is a powerful way to debug and develop either your recipes or your flutter apps. If you are interested in open an interative session run this:
+
+```bash
+./build.sh --shell
+
+```
+
+Once you are inside the `shell` you will be able to use commands like:
+
+- bitbake
+- bitbake-getvar
+- bitbake-layers
+- devtool
+
+## Cleaning
+
+```bash
+./cleanAll.sh
+# Keep in mind it could be dangerous in case you have unsaved changes.
+git clean -fdx
+```
 
 ## License
 
-![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+Thank you to @jwinarske. This project is based on his work.
+Check it out here: https://github.com/meta-flutter/meta-flutter-rpi
 
-(LICENSE) © {{Year}} [ERNI - Swiss Software Engineering](https://www.betterask.erni)
-
-## Code of conduct
-
-Please see our [Code of Conduct](CODE_OF_CONDUCT.md)
-
-## Stats
-
-Check [https://repobeats.axiom.co/](https://repobeats.axiom.co/) for the right URL
-
-## Follow us
-
-[![Twitter Follow](https://img.shields.io/twitter/follow/ERNI?style=social)](https://www.twitter.com/ERNI)
-[![Twitch Status](https://img.shields.io/twitch/status/erni_academy?label=Twitch%20Erni%20Academy&style=social)](https://www.twitch.tv/erni_academy)
-[![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCkdDcxjml85-Ydn7Dc577WQ?label=Youtube%20Erni%20Academy&style=social)](https://www.youtube.com/channel/UCkdDcxjml85-Ydn7Dc577WQ)
-[![Linkedin](https://img.shields.io/badge/linkedin-31k-green?style=social&logo=Linkedin)](https://www.linkedin.com/company/erni)
-
-## Contact
-
-📧 [esp-services@betterask.erni](mailto:esp-services@betterask.erni)
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Check the LICENSE file to find detailed info about the license of this project.

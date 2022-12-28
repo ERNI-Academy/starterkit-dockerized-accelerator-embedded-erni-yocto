@@ -1,0 +1,77 @@
+header:
+  version: 8
+
+distro: ideafix
+target:
+  - core-image-minimal
+
+repos:
+  meta-raspberrypi:
+    url: https://github.com/agherzan/meta-raspberrypi
+    path: sources/meta-raspberrypi
+    refspec: honister
+
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    path: sources/poky
+    refspec: honister
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: https://github.com/openembedded/meta-openembedded
+    path: sources/meta-openembedded
+    refspec: honister
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-perl:
+      meta-multimedia:
+      meta-filesystems:
+
+  meta-security:
+    url: https://git.yoctoproject.org/git/meta-security
+    path: sources/meta-security
+    refspec: honister
+
+  meta-erni:
+    path: meta-erni
+
+bblayers_conf_header:
+  standard: |
+    POKY_BBLAYERS_CONF_VERSION = "2"
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+
+local_conf_header:
+  basic_local_configs: |
+    CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_rpm"
+    SDKMACHINE = "x86_64"
+    USER_CLASSES = "buildstats"
+    PATCHRESOLVE = "noop"
+
+  directory_configs: |
+    DL_DIR ?= "${TOPDIR}/../dl"
+    SSTATE_DIR ?= "${TOPDIR}/../sstate"
+
+  debug_only_features: |
+    # like root user without pass
+    EXTRA_IMAGE_FEATURES += "debug-tweaks"
+
+  save_space_configs: |
+    INHERIT += "rm_work"
+
+  full_disk_protection: |
+    BB_DISKMON_DIRS = "\
+        STOPTASKS,${TMPDIR},1G,100K \
+        STOPTASKS,${DL_DIR},1G,100K \
+        STOPTASKS,${SSTATE_DIR},1G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        ABORT,${TMPDIR},100M,1K \
+        ABORT,${DL_DIR},100M,1K \
+        ABORT,${SSTATE_DIR},100M,1K \
+        ABORT,/tmp,10M,1K"
