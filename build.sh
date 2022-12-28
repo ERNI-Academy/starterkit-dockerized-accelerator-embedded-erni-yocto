@@ -11,7 +11,7 @@ __wifi_settings_interactive=
 __debug=
 __parallel_limit=
 __cores=
-__machine=qemu
+__conf_name=qemu
 
 while (( $# )); do
     case ${1,,} in
@@ -28,8 +28,8 @@ while (( $# )); do
             __only_shell=1
             echo "Only shell mode"
             ;;
-        -m|--machine)
-            __machine="$2"
+        -c|--config-name)
+            __conf_name="$2"
             shift
             ;;
         -wi|--wifi-interactive)
@@ -52,13 +52,12 @@ while (( $# )); do
 done
 
 # Start configuration
-export MACHINE=${__machine}
-export CONF_FILE="${repoPath}/conf/${MACHINE}.yml"
-export KAS_BUILD_DIR="${repoPath}/${MACHINE}"
+export CONF_FILE="${repoPath}/conf/${__conf_name}.yml"
+export KAS_BUILD_DIR="${repoPath}/${__conf_name}"
 export DL_DIR="${repoPath}/dl"
 export SSTATE_DIR="${repoPath}/sstate"
 export SHELL="/bin/bash"
-rm -rf "${MACHINE}"/conf/*
+rm -rf "${__conf_name}"/conf/*
 
 # Check availability of the kas tool
 check_kas
