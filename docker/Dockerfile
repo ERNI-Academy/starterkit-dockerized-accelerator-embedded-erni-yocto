@@ -16,6 +16,7 @@ RUN apt -y update && \
     apt install -y --no-install-recommends \
         locales \
         git \
+        ssh \
         rsync \
         grep \
         xz-utils \
