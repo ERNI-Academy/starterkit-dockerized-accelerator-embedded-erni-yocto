@@ -4,15 +4,4 @@
 
 export PATH=/yocto:${PATH}
 
-if [ -z "$(which python3)" ]
-then
-    /yocto/installDevEnv.sh
-fi
-
-# Check if it's needed to init Yocto devEnv
-if [ ! -d /yocto/sources ]
-then
-    kas checkout "conf/${MACHINE}.yml"
-fi
-
 exit 0
