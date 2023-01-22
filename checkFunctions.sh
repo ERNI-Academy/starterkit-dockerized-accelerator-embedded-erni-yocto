@@ -9,16 +9,6 @@ if [ "$0" = "$THIS_SCRIPT" ]; then
     exit 1
 fi
 
-function check_ansible(){
-    if [ -n "$(which ansible-playbook)" ]
-    then
-        echo "Ansible already installed"
-    else
-        echo "Installing ansible..."
-        sudo apt install -y ansible
-    fi
-}
-
 function check_vscode(){
     if [ -n "$(which code)" ]
     then

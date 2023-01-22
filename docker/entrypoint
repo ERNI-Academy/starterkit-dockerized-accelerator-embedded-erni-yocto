@@ -11,23 +11,12 @@ else
     useradd -d /yocto -u "$UID" -g "$GID" "$USER"
     echo "$USER:$USER" | chpasswd
 fi
-# Allow sudo without password
-echo "$USER ALL=(root) NOPASSWD: /usr/bin/ansible-playbook *" >> /etc/sudoers
 
 export PATH=/yocto:${PATH}
 
-if [ -z "$(which python3)" ]
+if [ -z "$(which kas)" ]
 then
-    sudo --user="${USER}" /yocto/installDevEnv.sh
-fi
-
-# Check if it's needed to init Yocto devEnv
-if [ ! -d /yocto/sources ]
-then
-    ln -s /usr/bin/python3 /usr/bin/python
-    sudo --user="${USER}" kas checkout "conf/${MACHINE}.yml"
-    chown -R "$USER":"$USER" /yocto/sources
-    chmod -R 755 /yocto/sources
+    /yocto/installDevEnv.sh
 fi
 
 # preserve sanctioned env vars for all users within the docker instance

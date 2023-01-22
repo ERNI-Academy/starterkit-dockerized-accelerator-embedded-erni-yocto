@@ -16,7 +16,6 @@ RUN apt -y update && \
     apt install -y --no-install-recommends \
         locales \
         git \
-        ansible \
         rsync \
         grep \
         xz-utils \
@@ -41,6 +40,7 @@ RUN apt -y update && \
         python3 \
         python3-dev \
         python3-pip \
+        python-is-python3 \
         kmod \
         bc \
         binfmt-support \
@@ -69,7 +69,6 @@ RUN addgroup "${GROUP}" --gid "${GID}"
 RUN useradd -d /home/${USER} -u "${UID}" -g "${GID}" "${USER}"&& mkdir -p /home/${USER}
 RUN chown -R "${USER}:${USER}" /home/${USER}
 RUN "${USER}:${USER}" | chpasswd
-RUN echo "$USER ALL=(root) NOPASSWD: /usr/bin/ansible-playbook *" >> /etc/sudoers
 
 RUN echo "export USER=${USER}" >> /etc/bash.bashrc
 RUN echo "export UID=${UID}" >> /etc/bash.bashrc

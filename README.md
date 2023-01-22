@@ -1,49 +1,50 @@
-# Flutterpi OS based on yocto
+# About starterkit-dockerized-accelerator-embedded-erni-yocto
 
-This is the development environment of flutterpi. A raspberry pi linux distro based on poky (yocto) which runs flutter apps. This is very useful for several use cases like: kiosk machines, vending machines, info panels, and a lot of different HMIs. It allows you to develop a HMI quickly, repeatible and fully customizable.
+This repo aims to boost the development with the [Starterkit-embbeded-erni-yocto](https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto). It takes that repo as base and create a docker develoment environment. This development environment is ready to work. We offer the possibility to use the "devcontairner" feature of Visual Studio Code, as well.
 
-## Dev env characteristics
+<img src="https://residenciacaninaidefix.com/wp-content/uploads/2018/10/idefix.jpeg" width="150">
 
-This devenv has been designed with the following prerequisites:
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-- Widely compatible with host systems.
-- As easy as posible.
-- Good documented.
-- Easy to manage remotely.
-- Flexible and multipurpose.
+## Features
 
-## Basic use
+- Development environment ready to start working with Yocto/poky.
+- Based on docker.
+- Non-dependency required.
+  - Note: It doesn't requires sudo access unless docker hasn't been previously installed.
 
-The devenv runs natively on Ubuntu 20.04/22.04 distros. If your system runs Ubuntu 20.04/22.04, you will be able to use it natively. Otherwise, you have these other options:
+## Prerequisites
 
-- Install docker (recommended)
-- Visual Code: Dev in container (also recommended, only linux host)
-- Virtual Machine with Ubuntu 20.04/22.04
-- Install WSL2 (only for Windows)
+**Host OS**
 
-### Installing - Docker method. Otherwise, you can skip this step.
+Ubuntu 22.04 and 20.04 are elegibles as Host OS.
 
-**Note:** Before running this step, you should be sure of:
+## Installation
 
-- Docker is installed
-- Docker service/daemon is running
-- Your user is in the docker group `sudo usermod -aG $(whoami) docker`
+1. Clone the repo
 
-The script will try to install/config docker in case it wasn't installed. If installation or config is needed, you will have to reboot your host and launch the script again.
+```bash
+git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
+```
+
+2. Initialize environment
 
 ```bash
 ./init-docker-env.sh
 ```
 
-### Installing - Ubuntu 20.04/22.04 native method
-
-**Note:** The installation step has to be used just the very first time.
+**Note:** You can use this repo natively without docker. In this case, you can install
+the depenpendecies with command below. This step has to be used just the very first time.
 
 ```bash
 ./installDevDeps.sh
 ```
 
-## Build
+## Getting Started - Basic use
+
+### Build
 
 You can build the entire image with settings by default. The result will a image bootable in a Raspberry Pi which runs a flutter app at the beggining. Just type:
 
@@ -62,7 +63,7 @@ Before starting the building, you can set the Wi-Fi settings (ssid + pass).
 
 **Note:** See ./build.sh --help for further information.
 
-## Custom build command
+### Custom build command
 
 Build script let you enter your custom bitbake commands. This can be done by using the -bc or --bitbake-cmd argument followed by the double-quoted command. This argument must be placed in the last position of command in order to avoid conflicts. See some examples:
 
@@ -73,7 +74,7 @@ Build script let you enter your custom bitbake commands. This can be done by usi
 ./build.sh -j 8 -wi --bitbake-cmd bitbake-layers show-layers
 ```
 
-## Interactive session
+### Interactive session
 
 This is a powerful way to debug and develop either your recipes or your flutter apps. If you are interested in open an interative session run this:
 
@@ -89,7 +90,7 @@ Once you are inside the `shell` you will be able to use commands like:
 - bitbake-layers
 - devtool
 
-## Cleaning
+### Cleaning
 
 ```bash
 ./cleanAll.sh
@@ -97,9 +98,48 @@ Once you are inside the `shell` you will be able to use commands like:
 git clean -fdx
 ```
 
+## Contributing
+
+Please see our [Contribution Guide](CONTRIBUTING.md) to learn how to contribute.
+
 ## License
 
-Thank you to @jwinarske. This project is based on his work.
-Check it out here: https://github.com/meta-flutter/meta-flutter-rpi
+![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Check the LICENSE file to find detailed info about the license of this project.
+## Code of conduct
+
+Please see our [Code of Conduct](CODE_OF_CONDUCT.md)
+
+## Stats
+
+Check [https://repobeats.axiom.co/](https://repobeats.axiom.co/) for the right URL
+
+## Follow us
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/ERNI?style=social)](https://www.twitter.com/ERNI)
+[![Twitch Status](https://img.shields.io/twitch/status/erni_academy?label=Twitch%20Erni%20Academy&style=social)](https://www.twitch.tv/erni_academy)
+[![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCkdDcxjml85-Ydn7Dc577WQ?label=Youtube%20Erni%20Academy&style=social)](https://www.youtube.com/channel/UCkdDcxjml85-Ydn7Dc577WQ)
+[![Linkedin](https://img.shields.io/badge/linkedin-31k-green?style=social&logo=Linkedin)](https://www.linkedin.com/company/erni)
+
+## Contact
+
+📧 [esp-services@betterask.erni](mailto:esp-services@betterask.erni)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Gmatarrubia"><img src="https://avatars.githubusercontent.com/u/7702234?v=4" width="100px;" alt=""/><br /><sub><b>gmatarrubia</b></sub></a><br /><a href="https://github.com/Gmatarrubia" title="Code">💻</a> <a href="#content-gmatarrubia" title="Content">🖋</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//commits?author=gmatarrubia" title="Documentation">📖</a> <a href="#design-gmatarrubia" title="Design">🎨</a> <a href="#ideas-gmatarrubia" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-gmatarrubia" title="Maintenance">🚧</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//commits?author=gmatarrubia" title="Tests">⚠️</a> <a href="#example-gmatarrubia" title="Examples">💡</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//pulls?q=is%3Apr+reviewed-by%3gmatarrubia" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

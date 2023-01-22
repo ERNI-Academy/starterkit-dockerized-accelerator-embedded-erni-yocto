@@ -38,7 +38,11 @@ repos:
     refspec: honister
 
   meta-erni:
-    path: meta-erni
+    url: https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
+    path: sources/meta-erni
+    refspec: main
+    layers:
+      meta-erni:
 
 bblayers_conf_header:
   standard: |
