@@ -84,9 +84,9 @@ then
 fi
 if [ -n "${WIFISSID}" ] && [ -n "${WIFIPASS}" ]
 then
-    pushd ./sources/meta-erni/recipes-system/network-settings/wifi || return
-    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf
-    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf
+    pushd ./sources/meta-erni/meta-erni/recipes-connectivity/wpa-supplicant/files || return
+    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf.custom
+    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf.custom
     popd || return
 fi
 
