@@ -28,7 +28,7 @@ while (( $# )); do
             __only_shell=1
             echo "Only shell mode"
             ;;
-        -c|--config-name)
+        -m|--machine)
             __conf_name="$2"
             shift
             ;;
@@ -61,6 +61,14 @@ rm -rf "${__conf_name}"/conf/*
 
 # Check availability of the kas tool
 check_kas
+
+# Check if config file exists
+if [ ! -f "${CONF_FILE}" ]
+then
+    echo "Machine ${__conf_name} unknown"
+    echo "Config file doesn't exist: ${CONF_FILE}"
+    exit 2
+fi
 
 # Check if sources were downloaded
 if [ ! -d "${repoPath}/sources" ]
