@@ -51,7 +51,9 @@ RUN apt -y update && \
         diffstat \
         liblz4-1 \
         liblz4-tool \
+        libncurses-dev \
         zstd \
+        tmux \
         bmap-tools
 
 RUN apt clean

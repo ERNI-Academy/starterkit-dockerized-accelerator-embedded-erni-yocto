@@ -32,7 +32,7 @@ while (( $# )); do
             __conf_name="$2"
             shift
             ;;
-        -wi|--wifi-interactive)
+        -wi|--wifi)
             __wifi_settings_interactive=1
             ;;
         -d|--debug)
