@@ -27,3 +27,4 @@ output.*
 build/
 qemu/
 rpi3/
+rpizw/

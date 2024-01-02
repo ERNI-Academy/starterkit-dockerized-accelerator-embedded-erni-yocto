@@ -19,10 +19,13 @@ then
     /yocto/installDevEnv.sh
 fi
 
+# Increase the watcher inodes
+sysctl -n -w fs.inotify.max_user_watches=128512
+
 # preserve sanctioned env vars for all users within the docker instance
 if [ $# -eq 0 ]
 then
-    exec sudo --user="${USER}" /bin/bash
+    exec sudo --user="${USER}" HOME=/yocto /bin/bash
 else
     exec sudo --user="${USER}" "$@"
 fi
